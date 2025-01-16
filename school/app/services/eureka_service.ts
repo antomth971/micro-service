@@ -7,29 +7,29 @@ class EurekaService {
     this.client = new Eureka({
       instance: {
         app: appName,
-        vipAddress: appName, // Nom virtuel pour identifier l'application
-        hostName: 'localhost', // Nom d'hôte
-        ipAddr: '127.0.0.1', // Adresse IP
+        vipAddress: appName,
+        hostName: 'localhost',
+        ipAddr: '127.0.0.1',
         port: {
           $: port,
-          '@enabled': 'true', // Corrigez ici en forçant à une chaîne de caractères
+          '@enabled': 'true',
         },
-        statusPageUrl: `http://localhost:${port}/info`, // URL de statut
-        healthCheckUrl: `http://localhost:${port}/health`, // URL pour le health check
-        preferIpAddress: true, // Laissez tel quel (booléen ici est correct)
+        statusPageUrl: `http://localhost:${port}/info`,
+        healthCheckUrl: `http://localhost:${port}/health`,
+        preferIpAddress: true,
         dataCenterInfo: {
           '@class': 'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo',
-          name: 'MyOwn', // Nécessaire pour des environnements locaux
+          name: 'MyOwn',
         },
       },
       eureka: {
-        host: 'localhost', // Adresse du serveur Eureka
-        port: 8761, // Port du serveur Eureka
-        servicePath: '/eureka/apps/', // Endpoint pour l'enregistrement
-        maxRetries: 5, // Nombre de tentatives
-        requestRetryDelay: 500, // Délai entre les tentatives
+        host: 'localhost',
+        port: 8761,
+        servicePath: '/eureka/apps/',
+        maxRetries: 5,
+        requestRetryDelay: 500,
       },
-      logger: console,
+      // logger: console,
     });
   }
 

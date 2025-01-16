@@ -56,13 +56,6 @@ services:
       - EUREKA_SERVER_ENABLE_SELF_PRESERVATION=false
     networks:
       - app-network
-  gateway-service:
-    build:
-      context: ./gateway
-    environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
-    networks:
-      - app-network
 volumes:
   local_pgdata:
   pgadmin-data:
