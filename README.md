@@ -85,12 +85,12 @@ Voici une organisation typique de vos dossiers pour le projet :
 ```
 micro-service/
 ├── gateway/                      # Configuration pour le Gateway (Spring Cloud Gateway)
-├── school-service/               # Microservice pour les "schools" (AdonisJS)
+├── school/               # Microservice pour les "schools" (AdonisJS)
 │   ├── app/                      # Contrôleurs, modèles, etc.
 │   ├── config/                   # Configuration de la base de données (PostgreSQL)
 │   ├── start/                    # Points d'entrée
 │   └── .../
-├── student-service/              # Microservice pour les "students" (AdonisJS)
+├── student/              # Microservice pour les "students" (AdonisJS)
 │   ├── app/                      # Contrôleurs, modèles, etc.
 │   ├── config/                   # Configuration de la base de données (MongoDB)
 │   ├──start/                    # Points d'entrée
@@ -117,13 +117,15 @@ micro-service/
 2. **Démarrer les Microservices :**
    - Pour `school-service` :
      ```bash
-     cd school-service
-     node ace serve --watch
+     cd school
+     npm i
+     npm run dev
      ```
    - Pour `student-service` :
      ```bash
-     cd student-service
-     node ace serve --watch
+     cd student
+     npm i
+     npm run dev
      ```
 
 3. **Vérifier Eureka :**
