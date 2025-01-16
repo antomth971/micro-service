@@ -1,0 +1,69 @@
+version: "3.8"
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  db:
+    image: postgres
+    container_name: local_pgdb
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: louis
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: app
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: louis.gaillard@codejourney.fr
+      PGADMIN_DEFAULT_PASSWORD: password
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - app-network
+  mongodb:
+    image: mongo:6-jammy
+    ports:
+      - '27017:27017'
+    volumes:
+      - dbdata6:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: louis
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: mydatabase
+    networks:
+      - app-network
+  eureka-server:
+    image: springcloud/eureka
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      - EUREKA_INSTANCE_HOSTNAME=localhost
+      - EUREKA_CLIENT_REGISTER_WITH_EUREKA=false
+      - EUREKA_CLIENT_FETCH_REGISTRY=false
+      - SPRING_CLOUD_CONFIG_ENABLED=false
+      - EUREKA_SERVER_ENABLE_SELF_PRESERVATION=false
+    networks:
+      - app-network
+  gateway-service:
+    build:
+      context: ./gateway
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    networks:
+      - app-network
+volumes:
+  local_pgdata:
+  pgadmin-data:
+  dbdata6:

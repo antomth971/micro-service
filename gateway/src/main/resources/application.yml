@@ -1,0 +1,28 @@
+server:
+  port: 8084
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: gateway_service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: school_route
+          uri: lb://SCHOOL
+          predicates:
+            - Path=/school/**
+        - id: student_route
+          uri: lb://STUDENT
+          predicates:
+            - Path=/student/**
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
