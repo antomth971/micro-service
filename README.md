@@ -130,6 +130,7 @@ micro-service/
    Rendez-vous sur `http://localhost:8761/` pour confirmer que les services sont bien enregistrés.
 
 4. **Tester les Services :**
+  (Sans Gateway)
    - Pour `schools` :
      ```bash
      curl http://localhost:3334/schools
@@ -138,6 +139,15 @@ micro-service/
      ```bash
      curl http://localhost:3336/students
      ```
+  (Avec Gateway)
+    - Pour `schools` :
+      ```bash
+      curl http://localhost:8084/schools
+      ```
+    - Pour `students` :
+      ```bash
+      curl http://localhost:8084/students
+      ```
 
 ---
 
